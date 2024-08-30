@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function updatePreview() {
+            document.getElementById('preview-name').innerText = document.getElementById('name').value;
+            document.getElementById('preview-email').innerText = document.getElementById('email').value;
+            document.getElementById('preview-phone').innerText = document.getElementById('phone').value;
+            document.getElementById('preview-education').innerText = document.getElementById('education').value;
+            document.getElementById('preview-experience').innerText = document.getElementById('experience').value;
+            document.getElementById('preview-skills').innerText = document.getElementById('skills').value;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>CV Builder</h1>
+        <form action="/generate" method="post" oninput="updatePreview()">
+            <label for="template">Select Template:</label>
+            <select id="template" name="template">
+                <option value="template1">Template 1</option>
+                <option value="template2">Template 2</option>
+            </select>
+            
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+            
+            <label for="education">Education:</label>
+            <textarea id="education" name="education" required></textarea>
+            
+            <label for="experience">Work Experience:</label>
+            <textarea id="experience" name="experience" required></textarea>
+            
+            <label for="skills">Skills:</label>
+            <textarea id="skills" name="skills" required></textarea>
+            
+            <button type="submit">Generate CV</button>
+        </form>
+        <div id="cv-preview">
+            <h2 id="preview-name"></h2>
+            <p><strong>Email:</strong> <span id="preview-email"></span></p>
+            <p><strong>Phone:</strong> <span id="preview-phone"></span></p>
+            <h3>Education</h3>
+            <p id="preview-education"></p>
+            <h3>Work Experience</h3>
+            <p id="preview-experience"></p>
+            <h3>Skills</h3>
+            <p id="preview-skills"></p>
+        </div>
+	<form action="/export_pdf" method="post">
+    <input type="hidden" id="template" name="template">
+    <input type="hidden" id="name" name="name">
+    <input type="hidden" id="email" name="email">
+    <input type="hidden" id="phone" name="phone">
+    <input type="hidden" id="education" name="education">
+    <input type="hidden" id="experience" name="experience">
+    <input type="hidden" id="skills" name="skills">
+    <button type="submit">Export as PDF</button>
+</form>
+
+    </div>
+</body>
+</html>
+
